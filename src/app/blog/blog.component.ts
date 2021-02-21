@@ -36,13 +36,29 @@ export class BlogComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit() {
+  /* onSubmit() {
     this.service.add(this.blogForm.value);
     this.snackBar.open('Blog Added Successfully', '', {
       duration: 2000,
     });
     this.getAllBlogs();
     this.blogForm.reset();
+  } */
+
+  async onSubmit() {
+    let returnedData = await this.service.add(this.blogForm.value);
+    if ( returnedData.updated) {
+      this.snackBar.open('Blog Added Successfully', '', {
+        duration: 2000,
+      });
+      this.getAllBlogs();
+      this.blogForm.reset();
+    } else {
+      this.snackBar.open('Something went wrong', '', {
+        duration: 2000,
+      });
+    }
+    
   }
 
   getAllBlogs() {

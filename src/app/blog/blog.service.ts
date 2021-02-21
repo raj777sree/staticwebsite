@@ -17,12 +17,17 @@ export class BlogService implements OnDestroy{
 
   constructor(private http: HttpClient) {}
 
-  add(data) {
+  /* add(data) {
     this.addServiceSubscription = this.http
       .post<{ updated: boolean }>(BACKEND_URL + "addBlog", data)
       .subscribe((returnedData) => {
         this.updated = returnedData.updated;
       });
+  } */
+
+  add(data) {
+    return this.http
+      .post<{ updated: boolean }>(BACKEND_URL + "addBlog", data).toPromise();
   }
 
   getAllBlogs() {
